@@ -21,8 +21,8 @@ public class UserService {
     }
 
     public User findById(String id) {
-        Optional<User> user = rep.findById(id);
-        return user.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+        Optional<User> obj = rep.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
     }
 
     public User insert(User obj) {
