@@ -1,5 +1,6 @@
 package com.guimachado.workshopmongo.resources;
 
+import com.guimachado.workshopmongo.domain.Post;
 import com.guimachado.workshopmongo.domain.User;
 import com.guimachado.workshopmongo.dto.UserDTO;
 import com.guimachado.workshopmongo.services.UserService;
@@ -28,8 +29,8 @@ public class UserResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-        User user = service.findById(id);
-        return ResponseEntity.ok().body(new UserDTO(user));
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
     @PostMapping()
@@ -51,6 +52,12 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
 }
